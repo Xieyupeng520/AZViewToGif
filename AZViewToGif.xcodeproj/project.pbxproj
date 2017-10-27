@@ -13,6 +13,9 @@
 		63194EC01FA18A6000987CBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63194EBF1FA18A6000987CBF /* Assets.xcassets */; };
 		63194EC31FA18A6000987CBF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63194EC11FA18A6000987CBF /* LaunchScreen.storyboard */; };
 		63194EC61FA18A6000987CBF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63194EC51FA18A6000987CBF /* main.m */; };
+		63194ECF1FA18B5D00987CBF /* RQShineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63194ECE1FA18B5D00987CBF /* RQShineLabel.m */; };
+		63194ED31FA18BCA00987CBF /* GifHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 63194ED21FA18BCA00987CBF /* GifHelper.m */; };
+		63194ED71FA1C10600987CBF /* AZImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 63194ED61FA1C10600987CBF /* AZImageHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,12 @@
 		63194EC21FA18A6000987CBF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63194EC41FA18A6000987CBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63194EC51FA18A6000987CBF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		63194ECD1FA18B5D00987CBF /* RQShineLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RQShineLabel.h; sourceTree = "<group>"; };
+		63194ECE1FA18B5D00987CBF /* RQShineLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RQShineLabel.m; sourceTree = "<group>"; };
+		63194ED11FA18BCA00987CBF /* GifHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GifHelper.h; sourceTree = "<group>"; };
+		63194ED21FA18BCA00987CBF /* GifHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GifHelper.m; sourceTree = "<group>"; };
+		63194ED51FA1C10600987CBF /* AZImageHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AZImageHelper.h; sourceTree = "<group>"; };
+		63194ED61FA1C10600987CBF /* AZImageHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AZImageHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +51,9 @@
 		63194EAA1FA18A6000987CBF = {
 			isa = PBXGroup;
 			children = (
+				63194ED41FA1C0BE00987CBF /* AZImageHelper */,
+				63194ED01FA18BA900987CBF /* GIFHelper */,
+				63194ECC1FA18ADE00987CBF /* RQShineLabel */,
 				63194EB51FA18A6000987CBF /* AZViewToGif */,
 				63194EB41FA18A6000987CBF /* Products */,
 			);
@@ -69,6 +81,33 @@
 				63194EC51FA18A6000987CBF /* main.m */,
 			);
 			path = AZViewToGif;
+			sourceTree = "<group>";
+		};
+		63194ECC1FA18ADE00987CBF /* RQShineLabel */ = {
+			isa = PBXGroup;
+			children = (
+				63194ECD1FA18B5D00987CBF /* RQShineLabel.h */,
+				63194ECE1FA18B5D00987CBF /* RQShineLabel.m */,
+			);
+			path = RQShineLabel;
+			sourceTree = "<group>";
+		};
+		63194ED01FA18BA900987CBF /* GIFHelper */ = {
+			isa = PBXGroup;
+			children = (
+				63194ED11FA18BCA00987CBF /* GifHelper.h */,
+				63194ED21FA18BCA00987CBF /* GifHelper.m */,
+			);
+			path = GIFHelper;
+			sourceTree = "<group>";
+		};
+		63194ED41FA1C0BE00987CBF /* AZImageHelper */ = {
+			isa = PBXGroup;
+			children = (
+				63194ED51FA1C10600987CBF /* AZImageHelper.h */,
+				63194ED61FA1C10600987CBF /* AZImageHelper.m */,
+			);
+			path = AZImageHelper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,7 +183,10 @@
 			files = (
 				63194EBB1FA18A6000987CBF /* ViewController.m in Sources */,
 				63194EC61FA18A6000987CBF /* main.m in Sources */,
+				63194ED71FA1C10600987CBF /* AZImageHelper.m in Sources */,
+				63194ED31FA18BCA00987CBF /* GifHelper.m in Sources */,
 				63194EB81FA18A6000987CBF /* AppDelegate.m in Sources */,
+				63194ECF1FA18B5D00987CBF /* RQShineLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
