@@ -83,8 +83,6 @@
 {
     [super viewDidAppear:animated];
     [self.shineLabel shineWithCompletion:^{
-        [[GifHelper getInstance] saveToGIF:_gifImages named:@"shinelabel1" delayTime:self.shineLabel.frameInterval * 1/60.f]; //屏幕fps为60hz
-        
         [self printAverageCostTime];
     }];
 }
@@ -96,6 +94,8 @@
         [self.shineLabel fadeOutWithCompletion:^{
             [self changeText];
             [self.shineLabel shineWithCompletion:^{
+                [[GifHelper getInstance] saveToGIF:_gifImages named:@"shinelabel1" delayTime:self.shineLabel.frameInterval * 1/60.f]; //屏幕fps为60hz
+                
                 [self printAverageCostTime];
             }];
         }];
@@ -123,7 +123,7 @@
 {
     self.shineLabel.text = self.textArray[(++self.textIndex) % self.textArray.count];
     [self.shineLabel sizeToFit];
-    self.shineLabel.frame = CGRectMake(16, 16, 320 - 32, CGRectGetHeight(self.view.bounds) - 16);
+    self.shineLabel.frame = CGRectMake(16, 16, 320 - 32, self.shineLabel.bounds.size.height);
     self.shineLabel.center = CGPointMake(self.shineLabel.center.x, self.view.center.y);
 }
 
@@ -139,7 +139,6 @@
     }
     NSLog(@"cost time average = %f \n\n", count/_costTimes.count);
     [_costTimes removeAllObjects];
-    [_gifImages removeAllObjects];
 }
 #pragma mark - ShineLabelDelegate
 - (void)onShine:(RQShineLabel*)shineLabel {
