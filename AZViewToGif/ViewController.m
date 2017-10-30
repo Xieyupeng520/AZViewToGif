@@ -83,6 +83,8 @@
 {
     [super viewDidAppear:animated];
     [self.shineLabel shineWithCompletion:^{
+        [[GifHelper getInstance] saveToGIF:_gifImages named:@"shinelabel1" delayTime:self.shineLabel.frameInterval * 1/60.f]; //屏幕fps为60hz
+        
         [self printAverageCostTime];
     }];
 }
@@ -94,8 +96,6 @@
         [self.shineLabel fadeOutWithCompletion:^{
             [self changeText];
             [self.shineLabel shineWithCompletion:^{
-                [[GifHelper getInstance] saveToGIF:_gifImages named:@"shinelabel1" delayTime:self.shineLabel.frameInterval * 1/60.f]; //屏幕fps为60hz
-                
                 [self printAverageCostTime];
             }];
         }];
