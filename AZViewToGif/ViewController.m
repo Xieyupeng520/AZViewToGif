@@ -14,6 +14,7 @@
 
 @interface ViewController () <ShineLabelDelegate> {
     NSMutableArray* _gifImages;
+    NSMutableArray* _costTimes;
 }
 @property (strong, nonatomic) RQShineLabel *shineLabel;
 @property (strong, nonatomic) NSArray *textArray;
@@ -38,6 +39,7 @@
         
         _imageArray = @[@"ygr",@"rqq2",@"ll",@"fy"];
         _gifImages = [NSMutableArray new];
+        _costTimes = [NSMutableArray new];
     }
     return self;
 }
@@ -71,7 +73,7 @@
         label.backgroundColor = [UIColor clearColor];
         [label sizeToFit];
         label.center = CGPointMake(label.center.x, self.view.center.y);
-        label.frameInterval = 4;
+        label.frameInterval = 1;
         label;
     });
     [self.view addSubview:self.shineLabel];
@@ -81,7 +83,9 @@
 {
     [super viewDidAppear:animated];
     [self.shineLabel shineWithCompletion:^{
-        [[GifHelper getInstance] saveToGIF:_gifImages named:@"shinelabel4" delayTime:self.shineLabel.frameInterval * 1/60.f]; //屏幕fps为60hz
+        [[GifHelper getInstance] saveToGIF:_gifImages named:@"shinelabel1" delayTime:self.shineLabel.frameInterval * 1/60.f]; //屏幕fps为60hz
+        
+        [self printAverageCostTime];
     }];
 }
 
@@ -91,7 +95,9 @@
     if (self.shineLabel.isVisible) {
         [self.shineLabel fadeOutWithCompletion:^{
             [self changeText];
-            [self.shineLabel shine];
+            [self.shineLabel shineWithCompletion:^{
+                [self printAverageCostTime];
+            }];
         }];
 
         [UIView animateWithDuration:DEFAULT_DURATION+1 delay:DEFAULT_DURATION-1 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -126,10 +132,30 @@
     return UIStatusBarStyleLightContent;
 }
 
+- (void)printAverageCostTime {
+    CGFloat count = 0.f;
+    for (NSNumber *n in _costTimes) {
+        count += [n floatValue];
+    }
+    NSLog(@"cost time average = %f \n\n", count/_costTimes.count);
+    [_costTimes removeAllObjects];
+    [_gifImages removeAllObjects];
+}
 #pragma mark - ShineLabelDelegate
 - (void)onShine:(RQShineLabel*)shineLabel {
+    NSDate* tmpStartData = [NSDate date];
+    double deltaTime1 = [[NSDate date] timeIntervalSinceDate:tmpStartData];
+    NSLog(@"cost time begin= %f", deltaTime1);
+    
+    shineLabel.backgroundColor = [UIColor blackColor];
     UIImage* img = [AZImageHelper captureView:shineLabel];
     [_gifImages addObject:img];
+    shineLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    
+    double deltaTime2 = [[NSDate date] timeIntervalSinceDate:tmpStartData];
+    NSLog(@"cost time end= %f \n\n", deltaTime2);
+    
+    [_costTimes addObject:[NSNumber numberWithFloat:deltaTime2 - deltaTime1]];
 }
 @end
 

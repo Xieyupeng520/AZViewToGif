@@ -100,6 +100,10 @@
     //是否循环
     NSUInteger loopCount = 0;
     
+    if (delayTime <= 0) {
+        delayTime = 0.0167;
+    }
+    
     //创建图片路径
     if (![gifName hasSuffix:@".gif"]) {
         gifName = [gifName stringByAppendingString:@".gif"];
@@ -111,17 +115,16 @@
     NSDictionary *gifProperties = [NSDictionary dictionaryWithObject:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:loopCount] forKey:(NSString *)kCGImagePropertyGIFLoopCount]forKey:(NSString *)kCGImagePropertyGIFDictionary];
     
     
+    //https://stackoverflow.com/questions/40310243/gif-image-generated-on-ios10-no-longer-loops-forever-on-browser
+    CGImageDestinationSetProperties(destination, (CFDictionaryRef)gifProperties);
+    
     for (int i = 0; i < images.count; i++) {
         
         UIImage *image = [images objectAtIndex:i];
         
-        if (delayTime <= 0) {
-            delayTime = 0.0167;
-        }
         NSDictionary *frameProperties = [NSDictionary dictionaryWithObject:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:delayTime] forKey:(NSString *)kCGImagePropertyGIFDelayTime] forKey:(NSString *)kCGImagePropertyGIFDictionary];
         
         CGImageDestinationAddImage(destination, image.CGImage, (CFDictionaryRef)frameProperties);
-        CGImageDestinationSetProperties(destination, (CFDictionaryRef)gifProperties);
         
     }
     
