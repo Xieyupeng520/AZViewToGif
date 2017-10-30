@@ -4,3 +4,6 @@
 sample
 
 ![](https://github.com/Xieyupeng520/AZViewToGif/blob/master/Resource/sample.gif)
+
+view to gif
+![](https://github.com/Xieyupeng520/AZViewToGif/blob/master/Resource/viewToGif.gif)
