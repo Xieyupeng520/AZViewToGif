@@ -101,7 +101,10 @@
 		self.characterAnimationDurations[i] = @(arc4random_uniform(remain * 100) / 100.0);
 	}
 }
-
+- (void)setFrameInterval:(NSInteger)frameInterval {
+    _frameInterval = frameInterval;
+    _displaylink.frameInterval = frameInterval;
+}
 - (void)shine
 {
   [self shineWithCompletion:NULL];
@@ -153,17 +156,17 @@
 
 - (void)updateAttributedString
 {
-  CFTimeInterval now = CACurrentMediaTime();
-  for (NSUInteger i = 0; i < self.attributedString.length; i ++) {
-    if ([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[self.attributedString.string characterAtIndex:i]]) { //跳过空格和换行
-        continue;
-    }
-    [self.attributedString enumerateAttribute:NSForegroundColorAttributeName
+    CFTimeInterval now = CACurrentMediaTime();
+    for (NSUInteger i = 0; i < self.attributedString.length; i ++) {
+        if ([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[self.attributedString.string characterAtIndex:i]]) { //跳过空格和换行
+            continue;
+        }
+        [self.attributedString enumerateAttribute:NSForegroundColorAttributeName
                                       inRange:NSMakeRange(i, 1) //当前字（location,length）
                                       options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
                                    usingBlock:^(id value, NSRange range, BOOL *stop) { //枚举属性字符串中的属性，针对各个子属性字符串调用usingBlock
                                      
-                                     CGFloat currentAlpha = CGColorGetAlpha([(UIColor *)value CGColor]);
+//                                     CGFloat currentAlpha = CGColorGetAlpha([(UIColor *)value CGColor]);
                                      BOOL shouldUpdateAlpha = //((self.isFadedOut && currentAlpha > 0) //正在消失
                                                               //|| (!self.isFadedOut && currentAlpha < 1)） //正在显现
                                                               (now - self.beginTime) >= [self.characterAnimationDelays[i] floatValue]; //到达了delayTime
@@ -179,15 +182,19 @@
                                      UIColor *color = [self.textColor colorWithAlphaComponent:percentage];
                                      [self.attributedString addAttribute:NSForegroundColorAttributeName value:color range:range];
                                    }];
-  }
-  [super setAttributedText:self.attributedString];
-
-  if (now > self.endTime) {
-    self.displaylink.paused = YES;
-    if (self.completion) {
-      self.completion();
     }
-  }
+    [super setAttributedText:self.attributedString];
+
+    if ([_delegate respondsToSelector:@selector(onShine:)]) {
+        [_delegate onShine:self];
+    }
+    
+    if (now > self.endTime) {
+        self.displaylink.paused = YES;
+        if (self.completion) {
+            self.completion();
+        }
+    }
 }
 
 - (NSMutableAttributedString *)initialAttributedStringFromAttributedString:(NSAttributedString *)attributedString

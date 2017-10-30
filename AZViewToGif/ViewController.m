@@ -9,8 +9,12 @@
 #import "ViewController.h"
 
 #import "RQShineLabel.h"
+#import "AZImageHelper.h"
+#import "GifHelper.h"
 
-@interface ViewController ()
+@interface ViewController () <ShineLabelDelegate> {
+    NSMutableArray* _gifImages;
+}
 @property (strong, nonatomic) RQShineLabel *shineLabel;
 @property (strong, nonatomic) NSArray *textArray;
 @property (assign, nonatomic) NSUInteger textIndex;
@@ -33,6 +37,7 @@
         _textIndex  = 0;
         
         _imageArray = @[@"ygr",@"rqq2",@"ll",@"fy"];
+        _gifImages = [NSMutableArray new];
     }
     return self;
 }
@@ -59,12 +64,14 @@
     
     self.shineLabel = ({
         RQShineLabel *label = [[RQShineLabel alloc] initWithFrame:CGRectMake(16, 16, 320 - 32, CGRectGetHeight(self.view.bounds) - 16)];
+        label.delegate = self;
         label.numberOfLines = 0;
         label.text = [self.textArray objectAtIndex:self.textIndex];
         label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:24.0];
         label.backgroundColor = [UIColor clearColor];
         [label sizeToFit];
         label.center = CGPointMake(label.center.x, self.view.center.y);
+        label.frameInterval = 4;
         label;
     });
     [self.view addSubview:self.shineLabel];
@@ -73,7 +80,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.shineLabel shine];
+    [self.shineLabel shineWithCompletion:^{
+        [[GifHelper getInstance] saveToGIF:_gifImages named:@"shinelabel4" delayTime:self.shineLabel.frameInterval * 1/60.f]; //屏幕fps为60hz
+    }];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -117,5 +126,10 @@
     return UIStatusBarStyleLightContent;
 }
 
+#pragma mark - ShineLabelDelegate
+- (void)onShine:(RQShineLabel*)shineLabel {
+    UIImage* img = [AZImageHelper captureView:shineLabel];
+    [_gifImages addObject:img];
+}
 @end
 

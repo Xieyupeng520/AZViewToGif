@@ -10,6 +10,14 @@
 
 #define DEFAULT_DURATION 2.f
 
+@class RQShineLabel;
+@protocol ShineLabelDelegate <NSObject>
+/**
+ * 每一帧刷新时
+ */
+- (void)onShine:(RQShineLabel*)shineLabel;
+@end
+
 @interface RQShineLabel: UILabel
 
 /**
@@ -22,6 +30,14 @@
  */
 @property (assign, nonatomic, readwrite) CFTimeInterval fadeoutDuration;
 
+/**
+ * shine label delegate
+ */
+@property (nonatomic, strong) id<ShineLabelDelegate> delegate;
+/**
+ * 每多少帧刷新一次，默认是1，屏幕频率1秒60帧，每帧同步刷新；若改为2，则每2帧刷新一次，即1秒30帧
+ */
+@property (nonatomic, assign) NSInteger frameInterval;
 
 /**
  *  Auto start the animation. Defaults to NO.

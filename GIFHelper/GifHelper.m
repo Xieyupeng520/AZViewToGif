@@ -91,13 +91,20 @@
     return frameDuration;
 }
 
-
-- (void)saveToGIF:(NSArray<UIImage*>*)images {
+/**
+ * @param images 要保存的序列帧
+ * @param gifName 保存为gif的文件命名（* or *.gif）
+ * @param delayTime 每两张序列帧之间的间隔，若传入值<=0，则设为和屏幕刷新同频率（60hz），即0.0167
+ */
+- (void)saveToGIF:(NSArray<UIImage*>*)images named:(NSString*)gifName delayTime:(CGFloat)delayTime{
     //是否循环
     NSUInteger loopCount = 0;
     
     //创建图片路径
-    NSString *cashPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"animated.gif"];
+    if (![gifName hasSuffix:@".gif"]) {
+        gifName = [gifName stringByAppendingString:@".gif"];
+    }
+    NSString *cashPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:gifName];
     
     CGImageDestinationRef destination =CGImageDestinationCreateWithURL((CFURLRef)[NSURL fileURLWithPath:cashPath], kUTTypeGIF, images.count, NULL);
     
@@ -108,7 +115,10 @@
         
         UIImage *image = [images objectAtIndex:i];
         
-        NSDictionary *frameProperties = [NSDictionary dictionaryWithObject:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:0.0167] forKey:(NSString *)kCGImagePropertyGIFDelayTime] forKey:(NSString *)kCGImagePropertyGIFDictionary];
+        if (delayTime <= 0) {
+            delayTime = 0.0167;
+        }
+        NSDictionary *frameProperties = [NSDictionary dictionaryWithObject:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:delayTime] forKey:(NSString *)kCGImagePropertyGIFDelayTime] forKey:(NSString *)kCGImagePropertyGIFDictionary];
         
         CGImageDestinationAddImage(destination, image.CGImage, (CFDictionaryRef)frameProperties);
         CGImageDestinationSetProperties(destination, (CFDictionaryRef)gifProperties);
