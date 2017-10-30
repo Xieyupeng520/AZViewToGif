@@ -73,7 +73,7 @@
         label.backgroundColor = [UIColor clearColor];
         [label sizeToFit];
         label.center = CGPointMake(label.center.x, self.view.center.y);
-        label.frameInterval = 1;
+        label.frameInterval = 2;
         label;
     });
     [self.view addSubview:self.shineLabel];
@@ -83,9 +83,9 @@
 {
     [super viewDidAppear:animated];
     [self.shineLabel shineWithCompletion:^{
-        [[GifHelper getInstance] saveToGIF:_gifImages named:@"shinelabel1" delayTime:self.shineLabel.frameInterval * 1/60.f]; //屏幕fps为60hz
+        [[GifHelper getInstance] saveToGIF:_gifImages named:@"shinelabel" delayTime:self.shineLabel.frameInterval * 1/60.f]; //屏幕fps为60hz
         
-        [self printAverageCostTime];
+//        [self printAverageCostTime];
     }];
 }
 
@@ -96,7 +96,7 @@
         [self.shineLabel fadeOutWithCompletion:^{
             [self changeText];
             [self.shineLabel shineWithCompletion:^{
-                [self printAverageCostTime];
+//                [self printAverageCostTime];
             }];
         }];
 
@@ -142,19 +142,21 @@
 }
 #pragma mark - ShineLabelDelegate
 - (void)onShine:(RQShineLabel*)shineLabel {
-    NSDate* tmpStartData = [NSDate date];
-    double deltaTime1 = [[NSDate date] timeIntervalSinceDate:tmpStartData];
-    NSLog(@"cost time begin= %f", deltaTime1);
+//    NSDate* tmpStartData = [NSDate date];
+//    double deltaTime1 = [[NSDate date] timeIntervalSinceDate:tmpStartData];
+//    NSLog(@"cost time begin= %f", deltaTime1);
     
-    shineLabel.backgroundColor = [UIColor blackColor];
+//    shineLabel.backgroundColor = [UIColor blackColor];
+    
     UIImage* img = [AZImageHelper captureView:shineLabel];
     [_gifImages addObject:img];
-    shineLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     
-    double deltaTime2 = [[NSDate date] timeIntervalSinceDate:tmpStartData];
-    NSLog(@"cost time end= %f \n\n", deltaTime2);
+//    shineLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     
-    [_costTimes addObject:[NSNumber numberWithFloat:deltaTime2 - deltaTime1]];
+//    double deltaTime2 = [[NSDate date] timeIntervalSinceDate:tmpStartData];
+//    NSLog(@"cost time end= %f \n\n", deltaTime2);
+//
+//    [_costTimes addObject:[NSNumber numberWithFloat:deltaTime2 - deltaTime1]];
 }
 @end
 
