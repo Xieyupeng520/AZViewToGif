@@ -2,4 +2,5 @@
 将view动画转成gif图片
 
 sample
-![](www.baidu.com)
+
+![](https://github.com/Xieyupeng520/AZViewToGif/blob/master/Resource/sample.gif)
