@@ -16,6 +16,7 @@
 		63194ECF1FA18B5D00987CBF /* RQShineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63194ECE1FA18B5D00987CBF /* RQShineLabel.m */; };
 		63194ED31FA18BCA00987CBF /* GifHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 63194ED21FA18BCA00987CBF /* GifHelper.m */; };
 		63194ED71FA1C10600987CBF /* AZImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 63194ED61FA1C10600987CBF /* AZImageHelper.m */; };
+		63A1E46D1FA71C7E0058F76A /* sample.gif in Resources */ = {isa = PBXBuildFile; fileRef = 63A1E46C1FA71C7E0058F76A /* sample.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		63194ED21FA18BCA00987CBF /* GifHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GifHelper.m; sourceTree = "<group>"; };
 		63194ED51FA1C10600987CBF /* AZImageHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AZImageHelper.h; sourceTree = "<group>"; };
 		63194ED61FA1C10600987CBF /* AZImageHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AZImageHelper.m; sourceTree = "<group>"; };
+		63A1E46C1FA71C7E0058F76A /* sample.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sample.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 				63194ED01FA18BA900987CBF /* GIFHelper */,
 				63194ECC1FA18ADE00987CBF /* RQShineLabel */,
 				63194EB51FA18A6000987CBF /* AZViewToGif */,
+				63A1E46B1FA71C030058F76A /* Resource */,
 				63194EB41FA18A6000987CBF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -108,6 +111,14 @@
 				63194ED61FA1C10600987CBF /* AZImageHelper.m */,
 			);
 			path = AZImageHelper;
+			sourceTree = "<group>";
+		};
+		63A1E46B1FA71C030058F76A /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				63A1E46C1FA71C7E0058F76A /* sample.gif */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,6 +179,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63A1E46D1FA71C7E0058F76A /* sample.gif in Resources */,
 				63194EC31FA18A6000987CBF /* LaunchScreen.storyboard in Resources */,
 				63194EC01FA18A6000987CBF /* Assets.xcassets in Resources */,
 				63194EBE1FA18A6000987CBF /* Main.storyboard in Resources */,
