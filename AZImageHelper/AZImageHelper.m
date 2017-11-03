@@ -36,19 +36,27 @@
 }
 
 //使View有渐变效果，可以从透明渐变到不透明
-- (void)gradientView:(UIView*)theView {
++ (void)gradientView:(CALayer*)theLayer {
     
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.frame = theView.bounds;
+    gradientLayer.frame = theLayer.bounds;
     //设置渐变颜色数组,可以加透明度的渐变
-    gradientLayer.colors = @[(__bridge id)[UIColor colorWithWhite:0 alpha:0.0].CGColor,(__bridge id)[UIColor colorWithWhite:0 alpha:1].CGColor];
+    gradientLayer.colors = @[(__bridge id)[UIColor colorWithWhite:0 alpha:0.0].CGColor,(__bridge id)[UIColor redColor].CGColor];
     //设置渐变区域的起始和终止向量（范围为0-1）
     gradientLayer.startPoint = CGPointMake(0, 0);
-    gradientLayer.endPoint = CGPointMake(0, 1);
-    //gradientLayer.locations = @[@(0.8f)];//设置渐变位置数组
+    gradientLayer.endPoint = CGPointMake(1, 1);
+    gradientLayer.locations = @[@(0.f), @(0.2f)];//设置渐变位置数组
     //注意：这里不用下边的这句话
     //[gradientView.layer addSublayer:gradientLayer];//将CAGradientlayer对象添加在我们要设置背景色的视图的layer层
     //设置蒙版，用来改变layer的透明度
-    [theView.layer setMask:gradientLayer];
+    [theLayer setMask:gradientLayer];
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"locations"];
+    animation.toValue = @[@(1),@(1)];
+    animation.duration = 2;
+//    animation.removedOnCompletion = NO;
+    animation.fillMode = kCAFillModeForwards;
+    
+    [gradientLayer addAnimation:animation forKey:@"locationsAnimation"];
 }
 @end

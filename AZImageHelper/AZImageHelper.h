@@ -13,4 +13,5 @@
 + (AZImageHelper*)getInstance;
 //截取特定UIView的截屏
 + (UIImage*)captureView:(UIView*)theView;
++ (void)gradientView:(CALayer*)theLayer;
 @end
