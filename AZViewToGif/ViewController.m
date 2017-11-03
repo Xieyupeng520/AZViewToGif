@@ -12,6 +12,8 @@
 #import "AZImageHelper.h"
 #import "GifHelper.h"
 
+#define PRINT_COST_TIME 0 //打印耗时
+
 @interface ViewController () <ShineLabelDelegate> {
     NSMutableArray* _gifImages;
     NSMutableArray* _costTimes;
@@ -84,8 +86,9 @@
     [super viewDidAppear:animated];
     [self.shineLabel shineWithCompletion:^{
         [[GifHelper getInstance] saveToGIF:_gifImages named:@"shinelabel" delayTime:self.shineLabel.frameInterval * 1/60.f]; //屏幕fps为60hz
-        
-//        [self printAverageCostTime];
+#if PRINT_COST_TIME
+        [self printAverageCostTime];
+#endif
     }];
 }
 
@@ -96,7 +99,9 @@
         [self.shineLabel fadeOutWithCompletion:^{
             [self changeText];
             [self.shineLabel shineWithCompletion:^{
-//                [self printAverageCostTime];
+#if PRINT_COST_TIME
+                [self printAverageCostTime];
+#endif
             }];
         }];
 
@@ -142,21 +147,24 @@
 }
 #pragma mark - ShineLabelDelegate
 - (void)onShine:(RQShineLabel*)shineLabel {
-//    NSDate* tmpStartData = [NSDate date];
-//    double deltaTime1 = [[NSDate date] timeIntervalSinceDate:tmpStartData];
-//    NSLog(@"cost time begin= %f", deltaTime1);
-    
+#if PRINT_COST_TIME
+    NSDate* tmpStartData = [NSDate date];
+    double deltaTime1 = [[NSDate date] timeIntervalSinceDate:tmpStartData];
+    NSLog(@"cost time begin= %f", deltaTime1);
+#endif
 //    shineLabel.backgroundColor = [UIColor blackColor];
-    
+
     UIImage* img = [AZImageHelper captureView:shineLabel];
     [_gifImages addObject:img];
     
 //    shineLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
-    
-//    double deltaTime2 = [[NSDate date] timeIntervalSinceDate:tmpStartData];
-//    NSLog(@"cost time end= %f \n\n", deltaTime2);
-//
-//    [_costTimes addObject:[NSNumber numberWithFloat:deltaTime2 - deltaTime1]];
+
+#if PRINT_COST_TIME
+    double deltaTime2 = [[NSDate date] timeIntervalSinceDate:tmpStartData];
+    NSLog(@"cost time end= %f \n\n", deltaTime2);
+
+    [_costTimes addObject:[NSNumber numberWithFloat:deltaTime2 - deltaTime1]];
+#endif
 }
 @end
 
