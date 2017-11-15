@@ -86,7 +86,7 @@
     [super viewDidAppear:animated];
     [self.shineLabel shineWithCompletion:^{
         [[GifHelper getInstance] saveToGIF:_gifImages named:@"shinelabel" delayTime:self.shineLabel.frameInterval * 1/60.f]; //屏幕fps为60hz
-        [AZImageHelper gradientView:self.shineLabel.layer];
+//        [AZImageHelper gradientView:self.shineLabel.layer];
 //        [self printAverageCostTime];
     }];
 }
@@ -99,7 +99,7 @@
             [self changeText];
             [self.shineLabel shineWithCompletion:^{
 //                [self printAverageCostTime];
-                [AZImageHelper gradientView:self.shineLabel.layer];
+//                [AZImageHelper gradientView:self.shineLabel.layer];
             }];
         }];
 

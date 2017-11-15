@@ -54,7 +54,7 @@
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"locations"];
     animation.toValue = @[@(1),@(1)];
     animation.duration = 2;
-//    animation.removedOnCompletion = NO;
+    animation.removedOnCompletion = NO;
     animation.fillMode = kCAFillModeForwards;
     
     [gradientLayer addAnimation:animation forKey:@"locationsAnimation"];

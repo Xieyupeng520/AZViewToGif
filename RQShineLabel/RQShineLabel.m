@@ -73,9 +73,15 @@
   _characterAnimationDurations = [NSMutableArray array];
   _characterAnimationDelays    = [NSMutableArray array];
   
-  _displaylink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateAttributedString)];
-  _displaylink.paused = YES;
-  [_displaylink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+}
+
+- (CADisplayLink *)displaylink {
+    if (_displaylink == nil) {
+        _displaylink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateAttributedString)];
+        _displaylink.paused = YES;
+        [_displaylink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+    }
+    return _displaylink;
 }
 
 - (void)didMoveToWindow
@@ -191,6 +197,8 @@
     
     if (now > self.endTime) {
         self.displaylink.paused = YES;
+        [_displaylink invalidate];
+        _displaylink = nil;
         if (self.completion) {
             self.completion();
         }
