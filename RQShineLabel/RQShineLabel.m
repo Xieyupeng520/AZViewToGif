@@ -109,7 +109,7 @@
 }
 - (void)setFrameInterval:(NSInteger)frameInterval {
     _frameInterval = frameInterval;
-    _displaylink.frameInterval = frameInterval;
+    self.displaylink.frameInterval = frameInterval;
 }
 - (void)shine
 {
